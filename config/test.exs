@@ -1,13 +1,16 @@
 import Config
 
+# Only in tests, remove the complexity from the password hashing algorithm
+config :pbkdf2_elixir, :rounds, 1
+
 # Configure your database
 #
 # The MIX_TEST_PARTITION environment variable can be used
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
 config :good_deeds, GoodDeeds.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: "dev",
+  password: "zaq1@WSX",
   hostname: "localhost",
   database: "good_deeds_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,

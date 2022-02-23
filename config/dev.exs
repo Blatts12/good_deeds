@@ -2,8 +2,8 @@ import Config
 
 # Configure your database
 config :good_deeds, GoodDeeds.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: "dev",
+  password: "zaq1@WSX",
   hostname: "localhost",
   database: "good_deeds_dev",
   show_sensitive_data_on_connection_error: true,
