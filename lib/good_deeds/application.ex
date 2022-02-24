@@ -15,7 +15,9 @@ defmodule GoodDeeds.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: GoodDeeds.PubSub},
       # Start the Endpoint (http/https)
-      GoodDeedsWeb.Endpoint
+      GoodDeedsWeb.Endpoint,
+      # Start the Scheduler (Quantum)
+      GoodDeeds.Scheduler
       # Start a worker by calling: GoodDeeds.Worker.start_link(arg)
       # {GoodDeeds.Worker, arg}
     ]
