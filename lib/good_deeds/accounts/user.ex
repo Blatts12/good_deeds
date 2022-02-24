@@ -10,6 +10,7 @@ defmodule GoodDeeds.Accounts.User do
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
     field :role, :string, default: "member"
+    has_one :points, GoodDeeds.Points.UserPoints
 
     timestamps()
   end
@@ -137,5 +138,11 @@ defmodule GoodDeeds.Accounts.User do
     else
       add_error(changeset, :current_password, "is not valid")
     end
+  end
+
+  def role_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:role])
+    |> validate_inclusion(:role, @roles)
   end
 end

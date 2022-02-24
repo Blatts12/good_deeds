@@ -17,6 +17,8 @@ config :good_deeds, GoodDeedsWeb.Endpoint,
   pubsub_server: GoodDeeds.PubSub,
   live_view: [signing_salt: "hKOsi/rG"]
 
+config :good_deeds, GoodDeeds.Scheduler, jobs: []
+
 # Configures the mailer
 #
 # By default it uses the "Local" adapter which stores the emails
