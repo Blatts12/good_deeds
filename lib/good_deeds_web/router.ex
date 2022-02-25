@@ -20,13 +20,13 @@ defmodule GoodDeedsWeb.Router do
   scope "/", GoodDeedsWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    get "/", IndexController, :index
   end
 
   scope "/admin", GoodDeedsWeb do
     pipe_through [:browser, :require_authenticated_user, :require_admin_user]
 
-    get "/", PageController, :admin
+    get "/", IndexController, :admin
   end
 
   # Other scopes may use custom stacks.

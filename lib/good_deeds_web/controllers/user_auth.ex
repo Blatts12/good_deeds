@@ -145,7 +145,7 @@ defmodule GoodDeedsWeb.UserAuth do
     else
       conn
       |> put_flash(:error, "You must be admin to access this page.")
-      |> redirect(to: Routes.page_path(conn, :index))
+      |> redirect(to: Routes.index_path(conn, :index))
       |> halt()
     end
   end

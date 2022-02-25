@@ -1,0 +1,8 @@
+.error-block {
+  width: 100%;
+  color: var(--red-6);
+}
+
+.invalid-feedback {
+  color: var(--red-6);
+}

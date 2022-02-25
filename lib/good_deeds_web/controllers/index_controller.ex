@@ -1,4 +1,4 @@
-defmodule GoodDeedsWeb.PageController do
+defmodule GoodDeedsWeb.IndexController do
   use GoodDeedsWeb, :controller
 
   def index(conn, _params) do
