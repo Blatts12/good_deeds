@@ -1,9 +1,9 @@
 <%= if info = get_flash(@conn, :info) do %>
-  <p class="info-block" role="alert"><%= info %></p>
+  <p class="info-block text-center" role="alert"><%= info %></p>
 <% end %>
 
 <%= if alert = get_flash(@conn, :error) do %>
-  <p class="alert-block" role="alert"><%= alert %></p>
+  <p class="alert-block text-center" role="alert"><%= alert %></p>
 <% end %>
 
 <%= @inner_content %>

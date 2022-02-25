@@ -3,4 +3,5 @@
   color: var(--red-1);
   padding: var(--size-2);
   border: 1px solid var(--red-7);
+  margin-top: var(--size-2);
 }

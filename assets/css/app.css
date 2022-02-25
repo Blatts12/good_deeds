@@ -22,6 +22,10 @@
   margin: auto;
 }
 
+.logo {
+  font-size: var(--font-size-fluid-1);
+}
+
 a:visited {
   color: var(--link);
 }

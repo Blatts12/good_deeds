@@ -15,7 +15,7 @@
     <header>
       <section class="container">
         <nav>
-          <div>Company</div>
+          <div class="logo">Company</div>
           <ul>
             <%= if assigns.current_user do %>
               <li><%= link("Settings", to: Routes.user_settings_path(@conn, :edit)) %></li>
