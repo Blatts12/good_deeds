@@ -1,7 +1,7 @@
 @import url("./nav.css");
 @import url("./btn.css");
 @import url("./error.css");
-@import url("./register.css");
+@import url("./auth.css");
 
 .container {
   width: min(100% - 2rem, 50rem);
@@ -18,4 +18,8 @@
 
 .margin-auto {
   margin: auto;
+}
+
+a:visited {
+  color: var(--link);
 }

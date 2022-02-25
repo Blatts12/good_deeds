@@ -1,0 +1,22 @@
+.form-auth {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-2);
+  padding: var(--size-2);
+}
+
+.btn__submit-auth {
+  width: max(50%, 100px);
+  margin-top: var(--size-2);
+  align-self: center;
+}
+
+.header-auth {
+  padding-top: var(--size-2);
+  font-size: var(--font-size-fluid-2);
+}
+
+.subheader-auth {
+  padding-top: var(--size-2);
+  font-size: var(--font-size-fluid-1);
+}

@@ -1,7 +1,7 @@
-<h1>Register</h1>
+<h1 class="header-auth text-center margin-auto">Register</h1>
 
 <.form let={f} for={@changeset} action={Routes.user_registration_path(@conn, :create)} class="form-auth">
-    <%= label f, :email %>
+  <%= label f, :email %>
   <%= email_input f, :email, required: true %>
   <%= error_tag f, :email %>
 
@@ -15,11 +15,11 @@
     </div>
   <% end %>
 
-  <div><%= submit "Register", class: "btn" %></div>
+  <%= submit "Register", class: "btn btn__submit-auth" %>
 
 </.form>
 
-<p>
+<p class="text-center margin-auto">
   <%= link "Log in", to: Routes.user_session_path(@conn, :new) %> |
   <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new) %>
 </p>

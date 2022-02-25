@@ -1,27 +1,28 @@
-<h1>Log in</h1>
+<h1 class="header-auth text-center margin-auto">Log in</h1>
 
-<.form let={f} for={@conn} action={Routes.user_session_path(@conn, :create)} as={:user}>
-  <%= if @error_message do %>
-    <div class="alert alert-danger">
-      <p><%= @error_message %></p>
-    </div>
-  <% end %>
-
+<.form let={f} for={@conn} action={Routes.user_session_path(@conn, :create)} as={:user} class="form-auth">
   <%= label f, :email %>
   <%= email_input f, :email, required: true %>
 
   <%= label f, :password %>
   <%= password_input f, :password, required: true %>
 
-  <%= label f, :remember_me, "Keep me logged in for 60 days" %>
-  <%= checkbox f, :remember_me %>
-
   <div>
-    <%= submit "Log in" %>
+    <%= label f, :remember_me, "Remember me?" %>
+    <%= checkbox f, :remember_me %>
   </div>
+
+
+  <%= if @error_message do %>
+    <div class="error-block">
+      <p class="text-center margin-auto"><%= @error_message %></p>
+    </div>
+  <% end %>
+
+  <%= submit "Log in", class: "btn btn__submit-auth" %>
 </.form>
 
-<p>
+<p class="text-center margin-auto">
   <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> |
   <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new) %>
 </p>

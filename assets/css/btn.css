@@ -1,3 +1,4 @@
 .btn {
   padding: 0.33em;
+  border: 1px solid var(--gray-6);
 }
