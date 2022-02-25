@@ -23,6 +23,12 @@ defmodule GoodDeedsWeb.Router do
     get "/", IndexController, :index
   end
 
+  scope "/points", GoodDeedsWeb do
+    pipe_through [:browser, :require_authenticated_user]
+
+    get "/", PointsController, :show
+  end
+
   scope "/admin", GoodDeedsWeb do
     pipe_through [:browser, :require_authenticated_user, :require_admin_user]
 

@@ -1,0 +1,26 @@
+.points-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--size-3);
+  padding: var(--size-3);
+}
+
+.points-block {
+  flex: 1 0 48%;
+  padding: var(--size-3);
+  background: var(--surface-3);
+  box-shadow: var(--shadow-2);
+  text-align: center;
+}
+
+.points-block p {
+  font-size: var(--font-size-4);
+}
+
+.points-block--pool {
+  grid-area: pool;
+}
+
+.points-block--points {
+  grid-area: points;
+}
