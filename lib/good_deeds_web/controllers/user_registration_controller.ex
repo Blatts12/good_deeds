@@ -2,6 +2,7 @@ defmodule GoodDeedsWeb.UserRegistrationController do
   use GoodDeedsWeb, :controller
 
   alias GoodDeeds.Accounts
+  alias GoodDeeds.Points
   alias GoodDeeds.Accounts.User
   alias GoodDeedsWeb.UserAuth
 
@@ -18,6 +19,8 @@ defmodule GoodDeedsWeb.UserRegistrationController do
             user,
             &Routes.user_confirmation_url(conn, :edit, &1)
           )
+
+        Points.create_user_points(%{user_id: user.id})
 
         conn
         |> put_flash(:info, "User created successfully.")

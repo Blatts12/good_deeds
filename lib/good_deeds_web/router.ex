@@ -23,6 +23,12 @@ defmodule GoodDeedsWeb.Router do
     get "/", PageController, :index
   end
 
+  scope "/admin", GoodDeedsWeb do
+    pipe_through [:browser, :require_authenticated_user, :require_admin_user]
+
+    get "/", PageController, :admin
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", GoodDeedsWeb do
   #   pipe_through :api

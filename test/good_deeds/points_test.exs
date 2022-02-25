@@ -9,6 +9,8 @@ defmodule GoodDeeds.PointsTest do
     import GoodDeeds.PointsFixtures
 
     @invalid_attrs %{points: nil, pool: nil}
+    @invalid_attrs_under_limit %{points: -10, pool: -10}
+    @invalid_attrs_over_limit %{points: 10, pool: 60}
 
     test "list_user_points/0 returns all user_points" do
       user_points = user_points_fixture()
@@ -28,15 +30,28 @@ defmodule GoodDeeds.PointsTest do
       assert user_points.pool == 42
     end
 
-    test "create_user_points/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Points.create_user_points(@invalid_attrs)
+    test "create_user_points/1 with invalid data, pool and points under limit, returns error changeset" do
+      {:error, changeset} = Points.create_user_points(@invalid_attrs_under_limit)
+
+      assert %{
+               points: ["must be greater than or equal to 0"],
+               pool: ["must be greater than or equal to 0"]
+             } = errors_on(changeset)
+    end
+
+    test "create_user_points/1 with invalid data, pool over limit, returns error changeset" do
+      {:error, changeset} = Points.create_user_points(@invalid_attrs_over_limit)
+
+      assert %{pool: ["must be less than or equal to 50"]} = errors_on(changeset)
     end
 
     test "update_user_points/2 with valid data updates the user_points" do
       user_points = user_points_fixture()
       update_attrs = %{points: 43, pool: 43}
 
-      assert {:ok, %UserPoints{} = user_points} = Points.update_user_points(user_points, update_attrs)
+      assert {:ok, %UserPoints{} = user_points} =
+               Points.update_user_points(user_points, update_attrs)
+
       assert user_points.points == 43
       assert user_points.pool == 43
     end
