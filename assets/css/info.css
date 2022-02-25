@@ -1,0 +1,6 @@
+.info-block {
+  background-color: var(--blue-8);
+  color: var(--blue-1);
+  padding: var(--size-2);
+  border: 1px solid var(--blue-6);
+}

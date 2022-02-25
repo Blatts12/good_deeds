@@ -4,5 +4,6 @@
 }
 
 .invalid-feedback {
+  text-transform: capitalize;
   color: var(--red-6);
 }
