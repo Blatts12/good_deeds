@@ -3,10 +3,8 @@ defmodule GoodDeedsWeb.UserRegistrationController do
   import Ecto
 
   alias GoodDeeds.Accounts
-  alias GoodDeeds.Points
   alias GoodDeeds.Repo
   alias GoodDeeds.Accounts.User
-  alias GoodDeeds.Points.UserPoints
   alias GoodDeedsWeb.UserAuth
 
   def new(conn, _params) do

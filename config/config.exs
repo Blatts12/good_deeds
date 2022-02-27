@@ -17,7 +17,13 @@ config :good_deeds, GoodDeedsWeb.Endpoint,
   pubsub_server: GoodDeeds.PubSub,
   live_view: [signing_salt: "hKOsi/rG"]
 
-config :good_deeds, GoodDeeds.Scheduler, jobs: []
+config :good_deeds, GoodDeeds.Scheduler,
+  jobs: [
+    reset_pools: [
+      schedule: "*/10 * * * *",
+      task: fn -> GoodDeeds.Points.Jobs.ResetPoolPoints.reset_pool_points() end
+    ]
+  ]
 
 # Configures the mailer
 #
