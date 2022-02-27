@@ -1,18 +1,19 @@
 <div class="points-container">
   <div class="points-block">
     <h4>Your Pool</h4>
-    <p><%= assigns.user_with_points.points.pool %></p>
+    <p><%= assigns.points.pool %></p>
   </div>
   <div class="points-block">
     <h4>Your Points</h4>
-    <p><%= assigns.user_with_points.points.points %></p>
+    <p><%= assigns.points.points %></p>
   </div>
 </div>
 
 <div class="given-container">
   <h4>History of given points</h4>
   <ul>
-    <li>10 points to elo@melo.com</li>
-    <li>20 points to jacek@email.com</li>
+    <%= for given <- assigns.points.given_points do %>
+      <li><%= given.given %> points to <%= given.user.email %></li>
+    <% end %>
   </ul>
 </div>
