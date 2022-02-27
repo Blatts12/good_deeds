@@ -7,4 +7,10 @@ defmodule GoodDeedsWeb.PointsController do
 
     render(conn, "show.html", points: user_with_points.points)
   end
+
+  def edit(%{assigns: %{current_user: user}} = conn, _params) do
+    user_with_points = user |> Repo.preload(:points)
+
+    render(conn, "edit.html", points: user_with_points.points)
+  end
 end

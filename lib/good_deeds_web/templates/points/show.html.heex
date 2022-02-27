@@ -9,6 +9,12 @@
   </div>
 </div>
 
+<%= if assigns.points.pool > 0 do %>
+  <div class="giveaway-container">
+    <button class="btn btn__give full-width">Give away your pool</button>
+  </div>
+<% end %>
+
 <div class="given-container">
   <h4>History of given points</h4>
   <ul>
