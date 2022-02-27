@@ -17,10 +17,25 @@
   font-size: var(--font-size-4);
 }
 
-.points-block--pool {
-  grid-area: pool;
+.given-container {
+  background: var(--surface-3);
+  margin-inline: var(--size-3);
+  box-shadow: var(--shadow-2);
 }
 
-.points-block--points {
-  grid-area: points;
+.given-container h4 {
+  margin: auto;
+  text-align: center;
+  padding: var(--size-2);
+}
+
+.given-container ul {
+  padding: 0;
+  list-style: none;
+}
+
+.given-container li {
+  margin: auto;
+  text-align: center;
+  padding: var(--size-2);
 }
