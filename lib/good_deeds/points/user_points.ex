@@ -6,6 +6,7 @@ defmodule GoodDeeds.Points.UserPoints do
     field :points, :integer, default: 0
     field :pool, :integer, default: 0
     belongs_to :user, GoodDeeds.Accounts.User
+    has_many :given_points, GoodDeeds.Points.GivenPoints
 
     timestamps()
   end
