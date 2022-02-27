@@ -18,4 +18,19 @@ defmodule GoodDeeds.PointsFixtures do
 
     user_points
   end
+
+  @doc """
+  Generate a given_points.
+  """
+  def given_points_fixture(attrs \\ %{}) do
+    {:ok, given_points} =
+      attrs
+      |> Enum.into(%{
+        canceled: false,
+        given: 30
+      })
+      |> GoodDeeds.Points.create_given_points()
+
+    given_points
+  end
 end

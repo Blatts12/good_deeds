@@ -73,4 +73,75 @@ defmodule GoodDeeds.PointsTest do
       assert %Ecto.Changeset{} = Points.change_user_points(user_points)
     end
   end
+
+  describe "given_points" do
+    alias GoodDeeds.Points.GivenPoints
+
+    import GoodDeeds.PointsFixtures
+
+    @invalid_attrs %{canceled: nil, given: nil}
+    @invalid_attrs_under_limit %{canceled: false, given: -10}
+    @invalid_attrs_over_limit %{canceled: false, given: 60}
+
+    test "list_given_points/0 return all given_points" do
+      given_points = given_points_fixture()
+      assert Points.list_given_points() == [given_points]
+    end
+
+    test "get_given_points!/1 returns the given_points with given id" do
+      given_points = given_points_fixture()
+      assert Points.get_given_points!(given_points.id) == given_points
+    end
+
+    test "create_given_points/1 with valid data creates a given_points" do
+      valid_attrs = %{canceled: false, given: 20}
+
+      assert {:ok, %GivenPoints{} = given_points} = Points.create_given_points(valid_attrs)
+      assert given_points.given == 20
+      assert given_points.canceled == false
+    end
+
+    test "create_given_points/1 with invalid data, given over limit, returns error changeset" do
+      {:error, changeset} = Points.create_given_points(@invalid_attrs_over_limit)
+
+      assert %{given: ["must be less than or equal to 50"]} = errors_on(changeset)
+    end
+
+    test "create_given_points/1 with invalid data, given under limit, returns error changeset" do
+      {:error, changeset} = Points.create_given_points(@invalid_attrs_under_limit)
+
+      assert %{given: ["must be greater than or equal to 0"]} = errors_on(changeset)
+    end
+
+    test "update_given_points/2 with valid data updates the given_points" do
+      given_points = given_points_fixture()
+      update_attrs = %{canceled: true, given: 45}
+
+      assert {:ok, %GivenPoints{} = given_points} =
+               Points.update_given_points(given_points, update_attrs)
+
+      assert given_points.given == 45
+      assert given_points.canceled == true
+    end
+
+    test "update_given_points/2 with invalid data returns error changeset" do
+      given_points = given_points_fixture()
+
+      assert {:error, %Ecto.Changeset{}} =
+               Points.update_given_points(given_points, @invalid_attrs)
+
+      assert given_points == Points.get_given_points!(given_points.id)
+    end
+
+    test "delete_given_points/1 deletes the given_points" do
+      given_points = given_points_fixture()
+      assert {:ok, %GivenPoints{}} = Points.delete_given_points(given_points)
+      assert_raise Ecto.NoResultsError, fn -> Points.get_given_points!(given_points.id) end
+    end
+
+    test "change_given_points/1 returns a given_points changeset" do
+      given_points = given_points_fixture()
+      assert %Ecto.Changeset{} = Points.change_given_points(given_points)
+    end
+  end
 end
