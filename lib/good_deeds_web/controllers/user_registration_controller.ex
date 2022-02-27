@@ -1,9 +1,12 @@
 defmodule GoodDeedsWeb.UserRegistrationController do
   use GoodDeedsWeb, :controller
+  import Ecto
 
   alias GoodDeeds.Accounts
   alias GoodDeeds.Points
+  alias GoodDeeds.Repo
   alias GoodDeeds.Accounts.User
+  alias GoodDeeds.Points.UserPoints
   alias GoodDeedsWeb.UserAuth
 
   def new(conn, _params) do
@@ -20,7 +23,9 @@ defmodule GoodDeedsWeb.UserRegistrationController do
             &Routes.user_confirmation_url(conn, :edit, &1)
           )
 
-        Points.create_user_points(%{user_id: user.id})
+        user
+        |> build_assoc(:points, user_id: user.id)
+        |> Repo.insert()
 
         conn
         |> put_flash(:info, "User created successfully.")
