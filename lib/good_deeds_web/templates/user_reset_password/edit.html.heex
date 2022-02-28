@@ -1,7 +1,5 @@
-<h1>Reset password</h1>
-
 <.form let={f} for={@changeset} action={Routes.user_reset_password_path(@conn, :update, @token)}>
-
+  <h1 class="header text-center margin-auto">Reset password</h1>
 
   <%= label f, :password, "New password" %>
   <%= password_input f, :password, required: true %>
@@ -22,7 +20,7 @@
   </div>
 </.form>
 
-<p>
+<p class="text-center margin-auto">
   <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> |
   <%= link "Log in", to: Routes.user_session_path(@conn, :new) %>
 </p>

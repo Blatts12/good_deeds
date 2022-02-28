@@ -16,6 +16,11 @@ form .header {
   font-size: var(--font-size-fluid-2);
 }
 
+.form-header {
+  padding-top: var(--size-2);
+  font-size: var(--font-size-fluid-2);
+}
+
 form .subheader {
   padding-top: var(--size-2);
   font-size: var(--font-size-fluid-1);

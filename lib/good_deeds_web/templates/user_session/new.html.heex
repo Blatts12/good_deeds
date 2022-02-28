@@ -1,6 +1,7 @@
-<h1 class="header-auth text-center margin-auto">Log in</h1>
 
-<.form let={f} for={@conn} action={Routes.user_session_path(@conn, :create)} as={:user} class="form-auth">
+
+<.form let={f} for={@conn} action={Routes.user_session_path(@conn, :create)} as={:user}>
+<h1 class="header text-center margin-auto">Log in</h1>
   <%= label f, :email %>
   <%= email_input f, :email, required: true %>
 
@@ -19,7 +20,7 @@
     </div>
   <% end %>
 
-  <%= submit "Log in", class: "btn btn__submit-auth" %>
+  <%= submit "Log in", class: "btn btn__submit" %>
 </.form>
 
 <p class="text-center margin-auto">

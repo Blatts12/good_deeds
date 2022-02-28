@@ -7,10 +7,15 @@
   display: block;
   background: var(--surface-2);
   border: 1px solid var(--gray-6);
+  color: var(--text-1);
 }
 
 .link-btn:hover,
 .link-btn:focus {
   text-decoration: none;
   background: var(--surface-3);
+}
+
+.link-btn:visited {
+  color: var(--text-1);
 }

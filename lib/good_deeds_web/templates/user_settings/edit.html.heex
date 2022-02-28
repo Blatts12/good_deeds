@@ -1,14 +1,7 @@
-<h1 class="header-auth text-center margin-auto">Settings</h1>
+<h1 class="form-header text-center margin-auto">Settings</h1>
 
-<h3 class="subheader-auth">Change email</h3>
-
-<.form let={f} for={@email_changeset} action={Routes.user_settings_path(@conn, :update)} id="update_email" class="form-auth">
-  <%= if @email_changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
-    </div>
-  <% end %>
-
+<.form let={f} for={@email_changeset} action={Routes.user_settings_path(@conn, :update)} id="update_email">
+  <h3 class="subheader">Change email</h3>
   <%= hidden_input f, :action, name: "action", value: "update_email" %>
 
   <%= label f, :email %>
@@ -19,13 +12,19 @@
   <%= password_input f, :current_password, required: true, name: "current_password", id: "current_password_for_email" %>
   <%= error_tag f, :current_password %>
 
-  <%= submit "Change email", class: "btn btn__submit-auth" %>
+  <%= if @email_changeset.action do %>
+    <div class="error-block">
+      <p class="text-center margin-auto">Oops, something went wrong! Please check the errors above.</p>
+    </div>
+  <% end %>
+
+  <%= submit "Change email", class: "btn btn__submit" %>
 </.form>
 
-<h3 class="subheader-auth">Change password</h3>
+<.form let={f} for={@password_changeset} action={Routes.user_settings_path(@conn, :update)} id="update_password">
+  <%= hidden_input f, :action, name: "action", value: "update_password" %>
 
-<.form let={f} for={@password_changeset} action={Routes.user_settings_path(@conn, :update)} id="update_password" class="form-auth">
-    <%= hidden_input f, :action, name: "action", value: "update_password" %>
+  <h3 class="subheader">Change password</h3>
 
   <%= label f, :password, "New password" %>
   <%= password_input f, :password, required: true %>
@@ -45,5 +44,5 @@
     </div>
   <% end %>
 
-  <%= submit "Change password", class: "btn btn__submit-auth" %>
+  <%= submit "Change password", class: "btn btn__submit" %>
 </.form>
