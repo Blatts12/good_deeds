@@ -27,6 +27,8 @@ defmodule GoodDeedsWeb.Router do
     pipe_through [:browser, :require_authenticated_user]
 
     get "/", PointsController, :show
+    get "/giveaway", PointsController, :giveaway_new
+    post "/giveaway", PointsController, :giveaway_create
   end
 
   scope "/admin", GoodDeedsWeb do

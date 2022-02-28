@@ -196,4 +196,17 @@ defmodule GoodDeeds.Points do
   def change_given_points(%GivenPoints{} = given_points, attrs \\ %{}) do
     GivenPoints.changeset(given_points, attrs)
   end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking giveaway changes.
+
+  ## Examples
+
+      iex> change_given_points(given_points)
+      %Ecto.Changeset{data: %{}}
+
+  """
+  def change_giveaway(%{} = giveaway, max_points, attrs \\ %{}) do
+    GivenPoints.giveaway_changeset(giveaway, max_points, attrs)
+  end
 end

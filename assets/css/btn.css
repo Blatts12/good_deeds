@@ -2,3 +2,15 @@
   padding: 0.33em;
   border: 1px solid var(--gray-6);
 }
+
+.link-btn {
+  display: block;
+  background: var(--surface-2);
+  border: 1px solid var(--gray-6);
+}
+
+.link-btn:hover,
+.link-btn:focus {
+  text-decoration: none;
+  background: var(--surface-3);
+}

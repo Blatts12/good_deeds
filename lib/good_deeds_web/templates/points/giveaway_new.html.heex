@@ -1,0 +1,20 @@
+<div class="points-container">
+  <div class="points-block">
+    <h4 class="margin-auto">Your Pool</h4>
+    <p><%= assigns.points.pool %></p>
+  </div>
+</div>
+
+<.form let={f} for={@changeset} as="giveaway" action={Routes.points_path(@conn, :giveaway_create)} class="form-auth">
+  <%= label f, :giveaway %>
+  <%= number_input f, :giveaway, required: true, max: assigns.points.pool, min: 1 %>
+  <%= error_tag f, :giveaway %>
+
+  <%= label f, :email %>
+  <%= text_input f, :email, required: true %>
+  <%= error_tag f, :email %>
+
+
+  <%= submit "Giveaway", class: "btn btn__submit-auth" %>
+
+</.form>

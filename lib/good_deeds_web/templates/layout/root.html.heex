@@ -18,6 +18,7 @@
           <div class="logo">Company</div>
           <ul>
             <%= if assigns.current_user do %>
+              <li><%= link("Points", to: Routes.points_path(@conn, :show)) %></li>
               <li><%= link("Settings", to: Routes.user_settings_path(@conn, :edit)) %></li>
               <li><%= link("Log out", to: Routes.user_session_path(@conn, :delete), method: :delete) %></li>
             <% else %>
