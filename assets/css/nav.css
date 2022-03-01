@@ -1,4 +1,7 @@
 header {
+  position: sticky;
+  top: 0px;
+
   width: 100%;
   padding-block: var(--size-4);
 
