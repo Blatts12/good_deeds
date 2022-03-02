@@ -8,6 +8,7 @@ defmodule GoodDeeds.Points do
 
   alias GoodDeeds.Points.UserPoints
   alias GoodDeeds.Points.GivenPoints
+  alias GoodDeeds.Points.Giveaway
 
   @doc """
   Returns the list of user_points.
@@ -206,7 +207,7 @@ defmodule GoodDeeds.Points do
       %Ecto.Changeset{data: %{}}
 
   """
-  def change_giveaway(%{} = giveaway, max_points, attrs \\ %{}) do
-    GivenPoints.giveaway_changeset(giveaway, max_points, attrs)
+  def change_giveaway(%Giveaway{} = giveaway, max_points, exclude_email, attrs \\ %{}) do
+    Giveaway.changeset(giveaway, max_points, exclude_email, attrs)
   end
 end

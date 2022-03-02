@@ -5,14 +5,14 @@
   </div>
 </div>
 
-<.form let={f} for={@changeset} as="giveaway" action={Routes.points_path(@conn, :giveaway_create)}>
-  <%= label f, :giveaway %>
-  <%= number_input f, :giveaway, required: true, max: assigns.points.pool, min: 1 %>
-  <%= error_tag f, :giveaway %>
+<.form let={f} for={@changeset} action={Routes.points_path(@conn, :giveaway_create)}>
+  <%= label f, :points %>
+  <%= number_input f, :points, required: true, max: assigns.points.pool, min: 1 %>
+  <%= error_tag f, :points %>
 
-  <%= label f, :email %>
-  <%= text_input f, :email, required: true %>
-  <%= error_tag f, :email %>
+  <%= label f, :to_email %>
+  <%= text_input f, :to_email, required: true %>
+  <%= error_tag f, :to_email %>
 
 
   <%= submit "Giveaway", class: "btn btn__submit" %>

@@ -1,7 +1,7 @@
 defmodule GoodDeedsWeb.PointsController do
   use GoodDeedsWeb, :controller
   alias GoodDeeds.{Repo, Points, Accounts}
-  alias GoodDeeds.Points.GivenPoints
+  alias GoodDeeds.Points.{GivenPoints, Giveaway}
   import Ecto.Changeset
   import Ecto
 
@@ -21,7 +21,7 @@ defmodule GoodDeedsWeb.PointsController do
         |> redirect(to: Routes.points_path(conn, :show))
 
       true ->
-        changeset = Points.change_giveaway(%{}, 50)
+        changeset = Points.change_giveaway(%Giveaway{}, points.pool, user.email)
 
         render(conn, "giveaway_new.html", points: points, changeset: changeset)
     end
@@ -32,26 +32,17 @@ defmodule GoodDeedsWeb.PointsController do
         %{"giveaway" => giveaway}
       ) do
     %{points: points} = from_user |> Repo.preload(:points)
-    changeset = Points.change_giveaway(%{}, points.pool, giveaway)
+    changeset = Points.change_giveaway(%Giveaway{}, points.pool, from_user.email, giveaway)
 
     case apply_action(changeset, :create) do
       {:ok, _giveaway} ->
-        case check_user(from_user, giveaway["email"], changeset) do
-          %Accounts.User{} = to_user ->
-            case giveaway_points(from_user, to_user, giveaway["giveaway"]) do
-              {:ok, _result} ->
-                redirect(conn, to: Routes.points_path(conn, :show))
+        to_user = Accounts.get_user_by_email(giveaway["to_email"])
 
-              {:error, changeset} ->
-                render(conn, "giveaway_new.html",
-                  points: points,
-                  changeset: changeset
-                )
-            end
+        case giveaway_points(from_user, to_user, giveaway["points"]) do
+          {:ok, _result} ->
+            redirect(conn, to: Routes.points_path(conn, :show))
 
-          %Ecto.Changeset{} = changeset ->
-            changeset = %Ecto.Changeset{changeset | action: :create}
-
+          {:error, changeset} ->
             render(conn, "giveaway_new.html",
               points: points,
               changeset: changeset
@@ -63,22 +54,6 @@ defmodule GoodDeedsWeb.PointsController do
           points: points,
           changeset: changeset
         )
-    end
-  end
-
-  defp check_user(user, email, changeset) do
-    case Accounts.get_user_by_email(email) do
-      %Accounts.User{} = to_user ->
-        cond do
-          user.id == to_user.id ->
-            add_error(changeset, :email, "You can't giveaway points to yourself")
-
-          true ->
-            to_user
-        end
-
-      nil ->
-        add_error(changeset, :email, "No user with that email found")
     end
   end
 
