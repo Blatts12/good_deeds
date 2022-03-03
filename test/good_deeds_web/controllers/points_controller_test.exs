@@ -44,4 +44,51 @@ defmodule GoodDeedsWeb.PointsControllerTest do
       assert redirected_to(conn) == Routes.user_session_path(conn, :new)
     end
   end
+
+  describe "POST /points/giveaway" do
+    test "creates given_points and checks history", %{conn: conn} do
+      conn =
+        post(conn, Routes.points_path(conn, :giveaway_create), %{
+          "giveaway" => %{"points" => "25", "to_email" => "test_case@example.com"}
+        })
+
+      assert redirected_to(conn) == Routes.points_path(conn, :show)
+
+      conn = get(conn, Routes.points_path(conn, :show))
+      response = html_response(conn, 200)
+      assert response =~ "<h4>Your Pool</h4>"
+      assert response =~ "<li>25 points to test_case@example.com</li>"
+    end
+
+    test "renders errors for invalid data, non existent email and points over limit", %{
+      conn: conn
+    } do
+      conn =
+        post(conn, Routes.points_path(conn, :giveaway_create), %{
+          "giveaway" => %{"points" => "250", "to_email" => "test_case_invalid@example.com"}
+        })
+
+      response = html_response(conn, 200)
+
+      assert response =~ "no user with that email found"
+      assert response =~ "must be less than or equal to 50"
+    end
+
+    test "renders errors for invalid data, email is logged in user and points under limit", %{
+      conn: conn
+    } do
+      %{private: %{plug_session: %{"user_token" => user_token}}} = conn
+      user = GoodDeeds.Accounts.get_user_by_session_token(user_token)
+
+      conn =
+        post(conn, Routes.points_path(conn, :giveaway_create), %{
+          "giveaway" => %{"points" => "-120", "to_email" => user.email}
+        })
+
+      response = html_response(conn, 200)
+
+      assert response =~ "you can&#39;t giveaway points to yourself"
+      assert response =~ "must be greater than or equal to 1"
+    end
+  end
 end

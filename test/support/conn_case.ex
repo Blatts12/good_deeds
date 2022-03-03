@@ -60,31 +60,16 @@ defmodule GoodDeedsWeb.ConnCase do
   """
   def register_and_log_in_user_with_pool(%{conn: conn}) do
     user = GoodDeeds.AccountsFixtures.user_fixture()
+    user2 = GoodDeeds.AccountsFixtures.user_fixture(%{email: "test_case@example.com"})
 
     user
     |> Ecto.build_assoc(:points, user_id: user.id)
     |> GoodDeeds.Points.UserPoints.changeset(%{points: 50, pool: 50})
     |> GoodDeeds.Repo.insert()
 
-    user = GoodDeeds.Repo.preload(user, :points)
-
-    %{conn: log_in_user(conn, user), user: user}
-  end
-
-  @doc """
-  Setup helper that registers with pool 0 and logs in users.
-
-      setup :register_and_log_in_user_with_no_pool
-
-  It stores an updated connection and a registered user with pool 0 in the
-  test context.
-  """
-  def register_and_log_in_user_with_no_pool(%{conn: conn}) do
-    user = GoodDeeds.AccountsFixtures.user_fixture()
-
-    user
-    |> Ecto.build_assoc(:points, user_id: user.id)
-    |> GoodDeeds.Points.UserPoints.changeset(%{points: 50, pool: 0})
+    user2
+    |> Ecto.build_assoc(:points, user_id: user2.id)
+    |> GoodDeeds.Points.UserPoints.changeset(%{points: 0, pool: 50})
     |> GoodDeeds.Repo.insert()
 
     user = GoodDeeds.Repo.preload(user, :points)

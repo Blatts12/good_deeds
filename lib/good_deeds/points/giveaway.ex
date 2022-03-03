@@ -10,7 +10,7 @@ defmodule GoodDeeds.Points.Giveaway do
     {giveaway, @types}
     |> cast(params, Map.keys(@types))
     |> validate_required(Map.keys(@types))
-    |> validate_number(:points, greater_than_or_equal_to: 0, less_than_or_equal_to: max_points)
+    |> validate_number(:points, greater_than_or_equal_to: 1, less_than_or_equal_to: max_points)
     |> validate_format(:to_email, ~r/^[^\s]+@[^\s]+$/,
       message: "must have the @ sign and no spaces"
     )
