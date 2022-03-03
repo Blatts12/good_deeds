@@ -23,10 +23,25 @@
   margin: auto;
 }
 
-.logo {
-  font-size: var(--font-size-fluid-1);
+.logo a {
+  margin: 0;
+  padding: 0;
+}
+
+.logo img {
+  aspect-ratio: 1;
+  width: 55px;
 }
 
 a:visited {
   color: var(--link);
+}
+
+.index-container {
+  padding: 1rem;
+}
+
+.index-container p {
+  text-align: justify;
+  padding: 1rem;
 }

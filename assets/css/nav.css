@@ -3,7 +3,7 @@ header {
   top: 0px;
 
   width: 100%;
-  padding-block: var(--size-4);
+  padding-block: var(--size-2);
 
   background: var(--surface-2);
   box-shadow: var(--shadow-2);
@@ -25,4 +25,8 @@ header ul {
 
 header ul > li {
   white-space: nowrap;
+}
+
+.nav-container p {
+  text-align: right;
 }

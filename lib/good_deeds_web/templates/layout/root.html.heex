@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <%= csrf_meta_tag() %>
-    <%= live_title_tag assigns[:page_title] || "GoodDeeds", suffix: " · Phoenix Framework" %>
+    <%= live_title_tag assigns[:page_title] || "GoodDeeds" %>
     <link rel="stylesheet" href="https://unpkg.com/open-props"/>
     <link rel="stylesheet" href="https://unpkg.com/open-props/normalize.min.css"/>
     <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
@@ -15,17 +15,26 @@
     <header>
       <section class="container">
         <nav>
-          <div class="logo">GoodDeeds</div>
-          <ul>
-            <%= if assigns.current_user do %>
-              <li><%= link("Points", to: Routes.points_path(@conn, :show)) %></li>
-              <li><%= link("Settings", to: Routes.user_settings_path(@conn, :edit)) %></li>
-              <li><%= link("Log out", to: Routes.user_session_path(@conn, :delete), method: :delete) %></li>
-            <% else %>
+          <div class="logo">
+            <%= content_tag :a, href: Routes.index_path(@conn, :index) do %>
+              <img src={Routes.static_path(@conn, "/images/logo.png")} alt="App Logo" />
+            <% end %>
+          </div>
+          <%= if assigns.current_user do %>
+            <div class="nav-container">
+              <p><%= assigns.current_user.email %></p>
+              <ul>
+                <li><%= link("Points", to: Routes.points_path(@conn, :show)) %></li>
+                <li><%= link("Settings", to: Routes.user_settings_path(@conn, :edit)) %></li>
+                <li><%= link("Log out", to: Routes.user_session_path(@conn, :delete), method: :delete) %></li>
+              </ul>
+            </div>
+          <% else %>
+            <ul>
               <li><%= link("Register", to: Routes.user_registration_path(@conn, :new)) %></li>
               <li><%= link("Log in", to: Routes.user_session_path(@conn, :new)) %></li>
-            <% end %>
-          </ul>
+            </ul>
+          <% end %>
         </nav>
       </section>
     </header>
