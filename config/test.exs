@@ -26,9 +26,6 @@ config :good_deeds, GoodDeedsWeb.Endpoint,
   secret_key_base: "YVtOYKFOoi1uPY8rhX6Ngfu131kiX53Q0SvhNTrXvMo2LLJ0ONRISYi4UDb2TV1n",
   server: false
 
-# In test we don't send emails.
-config :good_deeds, GoodDeeds.Mailer, adapter: Swoosh.Adapters.Test
-
 # Print only warnings and errors during test
 config :logger, level: :warn
 
