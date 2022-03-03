@@ -16,6 +16,9 @@ config :good_deeds, GoodDeeds.Repo,
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: 10
 
+# Bamboo configuration
+config :good_deeds, GoodDeeds.Mailer, adapter: Bamboo.TestAdapter
+
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
 config :good_deeds, GoodDeedsWeb.Endpoint,

@@ -63,12 +63,16 @@ defmodule GoodDeedsWeb.Router do
   #
   # Note that preview only shows emails that were sent by the same
   # node running the Phoenix server.
-  if Mix.env() == :dev do
-    scope "/dev" do
-      pipe_through :browser
+  # if Mix.env() == :dev do
+  #   scope "/dev" do
+  #     pipe_through :browser
 
-      forward "/mailbox", Plug.Swoosh.MailboxPreview
-    end
+  #     forward "/mailbox", Plug.Swoosh.MailboxPreview
+  #   end
+  # end
+
+  if Mix.env() == :dev do
+    forward "/sent_emails", Bamboo.SentEmailViewerPlug
   end
 
   ## Authentication routes

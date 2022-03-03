@@ -1,7 +1,7 @@
 defmodule GoodDeedsWeb.PointsController do
   use GoodDeedsWeb, :controller
   alias GoodDeeds.{Repo, Points, Accounts}
-  alias GoodDeeds.Points.{GivenPoints, Giveaway}
+  alias GoodDeeds.Points.{GivenPoints, Giveaway, GiveawayNotifier}
   import Ecto.Changeset
   import Ecto
 
@@ -40,6 +40,7 @@ defmodule GoodDeedsWeb.PointsController do
 
         case giveaway_points(from_user, to_user, giveaway["points"]) do
           {:ok, _result} ->
+            GiveawayNotifier.deliver_giveaway_notification(from_user, to_user, giveaway["points"])
             redirect(conn, to: Routes.points_path(conn, :show))
 
           {:error, changeset} ->
