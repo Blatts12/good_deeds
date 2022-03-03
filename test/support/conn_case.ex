@@ -51,6 +51,48 @@ defmodule GoodDeedsWeb.ConnCase do
   end
 
   @doc """
+  Setup helper that registers with pool 50 and logs in users.
+
+      setup :register_and_log_in_user_with_pool
+
+  It stores an updated connection and a registered user with pool 50 in the
+  test context.
+  """
+  def register_and_log_in_user_with_pool(%{conn: conn}) do
+    user = GoodDeeds.AccountsFixtures.user_fixture()
+
+    user
+    |> Ecto.build_assoc(:points, user_id: user.id)
+    |> GoodDeeds.Points.UserPoints.changeset(%{points: 50, pool: 50})
+    |> GoodDeeds.Repo.insert()
+
+    user = GoodDeeds.Repo.preload(user, :points)
+
+    %{conn: log_in_user(conn, user), user: user}
+  end
+
+  @doc """
+  Setup helper that registers with pool 0 and logs in users.
+
+      setup :register_and_log_in_user_with_no_pool
+
+  It stores an updated connection and a registered user with pool 0 in the
+  test context.
+  """
+  def register_and_log_in_user_with_no_pool(%{conn: conn}) do
+    user = GoodDeeds.AccountsFixtures.user_fixture()
+
+    user
+    |> Ecto.build_assoc(:points, user_id: user.id)
+    |> GoodDeeds.Points.UserPoints.changeset(%{points: 50, pool: 0})
+    |> GoodDeeds.Repo.insert()
+
+    user = GoodDeeds.Repo.preload(user, :points)
+
+    %{conn: log_in_user(conn, user), user: user}
+  end
+
+  @doc """
   Logs the given `user` into the `conn`.
 
   It returns an updated `conn`.
