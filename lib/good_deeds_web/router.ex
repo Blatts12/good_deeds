@@ -36,7 +36,8 @@ defmodule GoodDeedsWeb.Router do
 
     get "/", IndexController, :admin
     get "/users", UserController, :index
-    get "/users/:id", UserController, :show
+    get "/given_points", GivenPointsController, :index
+    post "/pool_reset", PointsController, :trigger_pool_reset
   end
 
   # Other scopes may use custom stacks.

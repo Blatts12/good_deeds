@@ -20,7 +20,7 @@ config :good_deeds, GoodDeedsWeb.Endpoint,
 config :good_deeds, GoodDeeds.Scheduler,
   jobs: [
     reset_pools: [
-      schedule: "*/10 * * * *",
+      schedule: "@monthly",
       task: fn -> GoodDeeds.Points.Jobs.ResetPoolPoints.reset_pool_points() end
     ]
   ]

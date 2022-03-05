@@ -4,7 +4,8 @@
   <tr>
     <th>Id</th>
     <th>Email</th>
-    <th>Confirmed</th>
+    <th>Role</th>
+    <th>Confirmed?</th>
     <th>Reg Date</th>
     <th>Points</th>
     <th>Given</th>
@@ -15,9 +16,14 @@
         <%= user.id %>
       </td>
       <td>
-        <%= link(user.email, to: Routes.user_path(@conn, :show, user)) %>
+        <%= user.email %>
       </td>
-      <td><%= if user.confirmed_at == nil, do: "No", else: "Yes" %></td>
+      <td>
+        <%= user.role %>
+      </td>
+      <td>
+        <%= if user.confirmed_at == nil, do: "No", else: "Yes" %>
+      </td>
       <td>
         <%= user.inserted_at %>
       </td>

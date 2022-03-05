@@ -58,6 +58,14 @@ defmodule GoodDeedsWeb.PointsController do
     end
   end
 
+  def trigger_pool_reset(conn, _params) do
+    Points.Jobs.ResetPoolPoints.reset_pool_points()
+
+    conn
+    |> put_flash(:info, "Pools has been resetted")
+    |> redirect(to: Routes.index_path(conn, :admin))
+  end
+
   defp giveaway_points(from_user, to_user, points) do
     points = String.to_integer(points)
     %{points: from_points} = Repo.preload(from_user, :points)

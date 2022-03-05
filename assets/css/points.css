@@ -7,6 +7,7 @@
 }
 
 .points-block {
+  flex-grow: 1;
   flex: 1 0 48%;
   padding: var(--size-3);
   background: var(--surface-3);

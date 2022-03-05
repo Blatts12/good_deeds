@@ -1,10 +1,41 @@
 .admin-panel {
+  padding: 1rem;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 0.5rem;
 }
 
+.show-panel {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.show-panel > div {
+  text-align: center;
+  flex: 1 0 45%;
+}
+
+.show-panel > div > p {
+  font-size: var(--font-size-2);
+}
+
+.show-panel > div > p:first-of-type {
+  font-weight: 600;
+
+  border-bottom: 1px solid var(--surface-4);
+}
+
 .list-table {
+  margin-top: 20px;
   width: 100%;
   text-align: center;
+  border-collapse: collapse;
+}
+
+.list-table td,
+.list-table th {
+  padding: 0.25rem;
+  border: 1px solid var(--surface-4);
 }

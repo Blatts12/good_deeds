@@ -8,11 +8,4 @@ defmodule GoodDeedsWeb.UserController do
     conn
     |> render("index.html", users: users)
   end
-
-  def show(conn, %{"id" => user_id}) do
-    user = Accounts.get_user!(user_id)
-
-    conn
-    |> render("show.html", user: user)
-  end
 end
