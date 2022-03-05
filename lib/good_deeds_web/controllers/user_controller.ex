@@ -5,7 +5,8 @@ defmodule GoodDeedsWeb.UserController do
   def index(conn, _params) do
     users = Accounts.list_users()
 
-    render(conn, "index.html", users: users)
+    conn
+    |> render("index.html", users: users)
   end
 
   def show(conn, %{"id" => user_id}) do
