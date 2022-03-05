@@ -1,4 +1,4 @@
-<h2 class="text-center margin-auto">GivenPoints</h2>
+<h2 class="text-center margin-auto">Given Points</h2>
 
 <ul class="list-given">
   <%= for given <- assigns.all_given do %>
@@ -10,7 +10,7 @@
       </p>
       <div>
         <a href="#">Summary</a>
-        <a href="#">List</a>
+        <%= link("List", to: Routes.given_points_path(@conn, :list, elem(given, 0).year, elem(given, 0).month)) %>
       </div>
     </li>
   <% end %>

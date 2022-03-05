@@ -1,0 +1,11 @@
+<ul>
+  <%= for given <- assigns.given_points do %>
+    <li>
+      <%= given.user.email %>
+      gifted
+      <%= given.given %>
+      points to
+      <%= given.user_points.user.email %>
+    </li>
+  <% end %>
+</ul>
