@@ -1,7 +1,17 @@
 <h2 class="text-center margin-auto">GivenPoints</h2>
 
-<ul>
-  <%= for given <- assigns.given_points do %>
-    <li><%= given.given %></li>
+<ul class="list-given">
+  <%= for given <- assigns.all_given do %>
+    <li>
+      <p>
+        <span class="date-month"><%= elem(given, 0) %></span> -
+        <%= elem(given, 1) %>
+        rewards
+      </p>
+      <div>
+        <a href="#">Summary</a>
+        <a href="#">List</a>
+      </div>
+    </li>
   <% end %>
 </ul>
