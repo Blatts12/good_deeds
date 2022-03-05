@@ -1,1 +1,28 @@
-<h1 class="text-center margin-auto">Users</h1>
+<h2 class="text-center margin-auto">Users</h2>
+
+<table class="list-table">
+  <tr>
+    <th>Id</th>
+    <th>Email</th>
+    <th>Confirmed</th>
+    <th>Reg Date</th>
+    <th>Points</th>
+    <th>Given</th>
+  </tr>
+  <%= for user <- assigns.users do %>
+    <tr>
+      <td>
+        <%= user.id %>
+      </td>
+      <td>
+        <%= link(user.email, to: Routes.user_path(@conn, :show, user)) %>
+      </td>
+      <td><%= if user.confirmed_at == nil, do: "No", else: "Yes" %></td>
+      <td>
+        <%= user.inserted_at %>
+      </td>
+      <td><i>WIP</i></td>
+      <td><i>WIP</i></td>
+    </tr>
+  <% end %>
+</table>
