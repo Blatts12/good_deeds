@@ -5,6 +5,7 @@
 @import url("./alert.css");
 @import url("./form.css");
 @import url("./points.css");
+@import url("./admin.css");
 
 .container {
   width: min(100% - 2rem, 50rem);
@@ -20,7 +21,7 @@
 }
 
 .margin-auto {
-  margin: auto;
+  margin-inline: auto;
 }
 
 .logo a {

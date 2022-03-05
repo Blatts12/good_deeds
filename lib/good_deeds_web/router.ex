@@ -35,6 +35,8 @@ defmodule GoodDeedsWeb.Router do
     pipe_through [:browser, :require_authenticated_user, :require_admin_user]
 
     get "/", IndexController, :admin
+    get "/users", UserController, :index
+    get "/users/:id", UserController, :show
   end
 
   # Other scopes may use custom stacks.

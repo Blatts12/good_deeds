@@ -1,1 +1,9 @@
 <h2>Admin</h2>
+
+<div class="admin-panel">
+  <%# <%= link("Trigger \"Reset Pool Points\" Job"), class: "btn-link" %> %>
+  <button class="btn">Trigger "Reset Pool Points" Job</button>
+  <%= link("Users List", to: Routes.user_path(@conn, :index), class: "link-btn text-center") %>
+  <button class="btn">Users List</button>
+  <button class="btn">Given Points List</button>
+</div>

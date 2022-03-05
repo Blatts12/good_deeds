@@ -139,6 +139,9 @@ defmodule GoodDeedsWeb.UserAuth do
     end
   end
 
+  @doc """
+  Used for routes that require the user to be admin.
+  """
   def require_admin_user(conn, _opts) do
     if conn.assigns.current_user.role == "admin" do
       conn

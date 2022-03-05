@@ -11,6 +11,32 @@ defmodule GoodDeeds.Accounts do
   ## Database getters
 
   @doc """
+  Returns the list of users.
+
+  ## Examples
+
+      iex> list_users()
+      [%User{}, ...]
+
+  """
+  def list_users do
+    Repo.all(User)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking user changes.
+
+  ## Examples
+
+      iex> change_user(user)
+      %Ecto.Changeset{data: %User{}}
+
+  """
+  def change_user(%User{} = user, attrs \\ %{}) do
+    User.registration_changeset(user, attrs)
+  end
+
+  @doc """
   Gets a user by email.
 
   ## Examples

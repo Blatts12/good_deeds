@@ -22,7 +22,11 @@
           </div>
           <%= if assigns.current_user do %>
             <div class="nav-container">
-              <p><%= assigns.current_user.email %></p>
+              <p>
+              <%= if assigns.current_user.role == "admin" do %>
+                <%= link("Admin", to: Routes.index_path(@conn, :admin)) %>
+              <% end %>
+              <%= assigns.current_user.email %></p>
               <ul>
                 <li><%= link("Points", to: Routes.points_path(@conn, :show)) %></li>
                 <li><%= link("Settings", to: Routes.user_settings_path(@conn, :edit)) %></li>
