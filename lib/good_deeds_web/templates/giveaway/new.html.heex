@@ -5,7 +5,7 @@
   </div>
 </div>
 
-<.form let={f} for={@changeset} action={Routes.points_path(@conn, :giveaway_create)}>
+<.form let={f} for={@changeset} action={Routes.giveaway_path(@conn, :create)}>
   <%= label f, :points %>
   <%= number_input f, :points, required: true, max: assigns.points.pool, min: 1 %>
   <%= error_tag f, :points %>

@@ -47,6 +47,11 @@ defmodule GoodDeedsWeb.ConnCase do
   """
   def register_and_log_in_user(%{conn: conn}) do
     user = GoodDeeds.AccountsFixtures.user_fixture()
+
+    user
+    |> Ecto.build_assoc(:points, user_id: user.id)
+    |> GoodDeeds.Repo.insert()
+
     %{conn: log_in_user(conn, user), user: user}
   end
 

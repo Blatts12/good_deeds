@@ -26,9 +26,9 @@ defmodule GoodDeedsWeb.Router do
   scope "/points", GoodDeedsWeb do
     pipe_through [:browser, :require_authenticated_user]
 
-    get "/", PointsController, :show
-    get "/giveaway", PointsController, :giveaway_new
-    post "/giveaway", PointsController, :giveaway_create
+    get "/", UserPointsController, :show
+    get "/giveaway", GiveawayController, :new
+    post "/giveaway", GiveawayController, :create
   end
 
   scope "/admin", GoodDeedsWeb do
@@ -39,7 +39,7 @@ defmodule GoodDeedsWeb.Router do
     get "/given_points", GivenPointsController, :index
     get "/given_points/list/:year/:month", GivenPointsController, :list
     get "/given_points/summary/:year/:month", GivenPointsController, :summary
-    post "/pool_reset", PointsController, :trigger_pool_reset
+    post "/pool_reset", UserPointsController, :trigger_pool_reset
   end
 
   # Other scopes may use custom stacks.

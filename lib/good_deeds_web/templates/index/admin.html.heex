@@ -1,7 +1,7 @@
 <h2 class="text-center margin-auto">Admin</h2>
 
 <div class="admin-panel">
-  <%= link("Trigger \"Reset Pool Points\" Job", to: Routes.points_path(@conn, :trigger_pool_reset), method: :post, class: "link-btn text-center") %>
+  <%= link("Trigger \"Reset Pool Points\" Job", to: Routes.user_points_path(@conn, :trigger_pool_reset), method: :post, class: "link-btn text-center") %>
   <%= link("Users List", to: Routes.user_path(@conn, :index), class: "link-btn text-center") %>
   <%= link("Rewards List", to: Routes.given_points_path(@conn, :index), class: "link-btn text-center") %>
 </div>

@@ -1,33 +1,28 @@
-defmodule GoodDeedsWeb.PointsController do
+defmodule GoodDeedsWeb.GiveawayController do
   use GoodDeedsWeb, :controller
-  alias GoodDeeds.{Repo, Points, Accounts}
-  alias GoodDeeds.Points.{GivenPoints, Giveaway, GiveawayNotifier}
+  alias GoodDeeds.{Points, Accounts}
+  alias GoodDeeds.Points.{Giveaway, GiveawayNotifier, GivenPoints}
+  alias GoodDeeds.Repo
   import Ecto.Changeset
   import Ecto
 
-  def show(%{assigns: %{current_user: user}} = conn, _params) do
-    %{points: points} = user |> Repo.preload(points: [given_points: [:user]])
-
-    render(conn, "show.html", points: points)
-  end
-
-  def giveaway_new(%{assigns: %{current_user: user}} = conn, _params) do
+  def new(%{assigns: %{current_user: user}} = conn, _params) do
     %{points: points} = user |> Repo.preload(:points)
 
     cond do
       points.pool <= 0 ->
         conn
         |> put_flash(:error, "You don't have enough points in your pool")
-        |> redirect(to: Routes.points_path(conn, :show))
+        |> redirect(to: Routes.user_points_path(conn, :show))
 
       true ->
         changeset = Points.change_giveaway(%Giveaway{}, points.pool, user.email)
 
-        render(conn, "giveaway_new.html", points: points, changeset: changeset)
+        render(conn, "new.html", points: points, changeset: changeset)
     end
   end
 
-  def giveaway_create(
+  def create(
         %{assigns: %{current_user: from_user}} = conn,
         %{"giveaway" => giveaway}
       ) do
@@ -41,29 +36,21 @@ defmodule GoodDeedsWeb.PointsController do
         case giveaway_points(from_user, to_user, giveaway["points"]) do
           {:ok, _result} ->
             GiveawayNotifier.deliver_giveaway_notification(from_user, to_user, giveaway["points"])
-            redirect(conn, to: Routes.points_path(conn, :show))
+            redirect(conn, to: Routes.user_points_path(conn, :show))
 
           {:error, changeset} ->
-            render(conn, "giveaway_new.html",
+            render(conn, "new.html",
               points: points,
               changeset: changeset
             )
         end
 
       {:error, changeset} ->
-        render(conn, "giveaway_new.html",
+        render(conn, "new.html",
           points: points,
           changeset: changeset
         )
     end
-  end
-
-  def trigger_pool_reset(conn, _params) do
-    Points.Jobs.ResetPoolPoints.reset_pool_points()
-
-    conn
-    |> put_flash(:info, "Pools has been resetted")
-    |> redirect(to: Routes.index_path(conn, :admin))
   end
 
   defp giveaway_points(from_user, to_user, points) do

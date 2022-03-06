@@ -28,7 +28,7 @@
               <% end %>
               <%= assigns.current_user.email %></p>
               <ul>
-                <li><%= link("Points", to: Routes.points_path(@conn, :show)) %></li>
+                <li><%= link("Points", to: Routes.user_points_path(@conn, :show)) %></li>
                 <li><%= link("Settings", to: Routes.user_settings_path(@conn, :edit)) %></li>
                 <li><%= link("Log out", to: Routes.user_session_path(@conn, :delete), method: :delete) %></li>
               </ul>

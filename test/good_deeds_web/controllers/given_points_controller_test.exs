@@ -1,0 +1,2 @@
+defmodule GoodDeedsWeb.GivenPointsControllerTest do
+end
