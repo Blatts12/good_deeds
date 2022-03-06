@@ -37,7 +37,8 @@ defmodule GoodDeedsWeb.Router do
     get "/", IndexController, :admin
     get "/users", UserController, :index
     get "/given_points", GivenPointsController, :index
-    get "/given_points/:year/:month", GivenPointsController, :list
+    get "/given_points/list/:year/:month", GivenPointsController, :list
+    get "/given_points/summary/:year/:month", GivenPointsController, :summary
     post "/pool_reset", PointsController, :trigger_pool_reset
   end
 

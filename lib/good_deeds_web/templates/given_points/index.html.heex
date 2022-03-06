@@ -9,7 +9,7 @@
         rewards
       </p>
       <div>
-        <a href="#">Summary</a>
+        <%= link("Summary", to: Routes.given_points_path(@conn, :summary, elem(given, 0).year, elem(given, 0).month)) %>
         <%= link("List", to: Routes.given_points_path(@conn, :list, elem(given, 0).year, elem(given, 0).month)) %>
       </div>
     </li>
