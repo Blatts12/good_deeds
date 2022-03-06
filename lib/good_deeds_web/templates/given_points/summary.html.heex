@@ -4,14 +4,14 @@
   <tr>
     <th>Id</th>
     <th>Email</th>
-    <th>Recived</th>
+    <th>Received</th>
     <th>Gifted</th>
   </tr>
   <%= for sum <- assigns.summary do %>
     <tr>
       <td><%= sum.user_id %></td>
       <td><%= sum.email %></td>
-      <td><%= sum.recived %></td>
+      <td><%= sum.received %></td>
       <td><%= sum.gifted %></td>
     </tr>
   <% end %>

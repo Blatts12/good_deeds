@@ -62,7 +62,7 @@ defmodule GoodDeedsWeb.GivenPointsController do
         |> redirect(to: Routes.given_points_path(conn, :index))
 
       true ->
-        recived_query =
+        received_query =
           from given in GivenPoints,
             where: fragment("? between ? and ?", given.inserted_at, ^start_date, ^end_date),
             join: user in assoc(given, :user),
@@ -70,7 +70,7 @@ defmodule GoodDeedsWeb.GivenPointsController do
             select: %{
               user_id: given.user_id,
               email: user.email,
-              recived: sum(given.given),
+              received: sum(given.given),
               gifted: 0
             }
 
@@ -83,17 +83,17 @@ defmodule GoodDeedsWeb.GivenPointsController do
             select: %{
               user_id: user_points.user_id,
               email: up_user.email,
-              recived: 0,
+              received: 0,
               gifted: sum(given.given)
             }
 
         given_summary =
           Repo.all(
-            from s in subquery(union(recived_query, ^gifted_query)),
+            from s in subquery(union(received_query, ^gifted_query)),
               select: %{
                 user_id: s.user_id,
                 email: s.email,
-                recived: sum(s.recived),
+                received: sum(s.received),
                 gifted: sum(s.gifted)
               },
               group_by: [s.user_id, s.email]

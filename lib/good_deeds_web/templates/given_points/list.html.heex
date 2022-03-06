@@ -4,9 +4,9 @@
   <%= for given <- assigns.given_points do %>
     <li>
       <%= given.user.email %>
-      gifted
+      received
       <%= given.given %>
-      points to
+      points from
       <%= given.user_points.user.email %>
     </li>
   <% end %>
