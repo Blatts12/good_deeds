@@ -1,1 +1,18 @@
-<h2>Summary</h2>
+<h2 class="text-center margin-auto">Summary</h2>
+
+<table class="list-table">
+  <tr>
+    <th>Id</th>
+    <th>Email</th>
+    <th>Recived</th>
+    <th>Gifted</th>
+  </tr>
+  <%= for sum <- assigns.summary do %>
+    <tr>
+      <td><%= sum.user_id %></td>
+      <td><%= sum.email %></td>
+      <td><%= sum.recived %></td>
+      <td><%= sum.gifted %></td>
+    </tr>
+  <% end %>
+</table>

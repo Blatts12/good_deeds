@@ -52,8 +52,56 @@ defmodule GoodDeedsWeb.GivenPointsController do
   end
 
   def summary(conn, %{"year" => year, "month" => month}) do
-    conn
-    |> render("summary.html")
+    start_date = get_start_of_month(year, month)
+    end_date = get_end_of_month(year, month)
+
+    cond do
+      start_date == nil || end_date == nil ->
+        conn
+        |> put_flash(:error, "Wrong date")
+        |> redirect(to: Routes.given_points_path(conn, :index))
+
+      true ->
+        recived_query =
+          from given in GivenPoints,
+            where: fragment("? between ? and ?", given.inserted_at, ^start_date, ^end_date),
+            join: user in assoc(given, :user),
+            group_by: [user.id, given.user_id],
+            select: %{
+              user_id: given.user_id,
+              email: user.email,
+              recived: sum(given.given),
+              gifted: 0
+            }
+
+        gifted_query =
+          from given in GivenPoints,
+            where: fragment("? between ? and ?", given.inserted_at, ^start_date, ^end_date),
+            join: user_points in assoc(given, :user_points),
+            join: up_user in assoc(user_points, :user),
+            group_by: [user_points.user_id, up_user.email],
+            select: %{
+              user_id: user_points.user_id,
+              email: up_user.email,
+              recived: 0,
+              gifted: sum(given.given)
+            }
+
+        given_summary =
+          Repo.all(
+            from s in subquery(union(recived_query, ^gifted_query)),
+              select: %{
+                user_id: s.user_id,
+                email: s.email,
+                recived: sum(s.recived),
+                gifted: sum(s.gifted)
+              },
+              group_by: [s.user_id, s.email]
+          )
+
+        conn
+        |> render("summary.html", summary: given_summary)
+    end
   end
 
   defp get_start_of_month(year, month) do
