@@ -42,14 +42,13 @@
 
 .list-given {
   padding: 0;
-  margin-top: 20px;
+  margin-top: 15px;
   width: 100%;
   list-style: none;
 }
 
 .list-given > li {
   margin-inline: auto;
-  width: 100%;
   display: flex;
   justify-content: space-between;
   padding: 0.25rem;
@@ -58,4 +57,17 @@
 .list-given > li > div {
   display: flex;
   gap: 0.45rem;
+}
+
+.list-rewards {
+  padding: 0;
+  margin-top: 15px;
+  width: 100%;
+  list-style: none;
+}
+
+.list-rewards > li {
+  margin-inline: auto;
+  padding: 0.25rem;
+  text-align: center;
 }
