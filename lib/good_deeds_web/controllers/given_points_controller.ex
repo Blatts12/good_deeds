@@ -1,6 +1,7 @@
 defmodule GoodDeedsWeb.GivenPointsController do
   use GoodDeedsWeb, :controller
   alias GoodDeeds.Points.GivenPoints
+  alias GoodDeeds.Points
   alias GoodDeeds.Repo
   import Ecto.Query
 
@@ -15,6 +16,43 @@ defmodule GoodDeedsWeb.GivenPointsController do
 
     conn
     |> render("index.html", all_given: all_given)
+  end
+
+  def cancel(conn, %{"id" => given_id}) do
+    %{assigns: %{current_user: user}} = conn
+
+    case Repo.get(GivenPoints, given_id) do
+      %GivenPoints{} = given_points ->
+        given_points = Repo.preload(given_points, :user_points)
+
+        cond do
+          given_points.user_points.user_id == user.id || user.role == "admin" ->
+            today = Date.utc_today()
+
+            cond do
+              today.month == given_points.inserted_at.month &&
+                  today.year == given_points.inserted_at.year ->
+                conn
+                |> put_flash(:info, "Reward has been cancelled")
+                |> redirect(to: Routes.index_path(conn, :index))
+
+              true ->
+                conn
+                |> put_flash(:error, "Reward is too old to be cancelled")
+                |> redirect(to: Routes.index_path(conn, :index))
+            end
+
+          true ->
+            conn
+            |> put_flash(:error, "You can't do that")
+            |> redirect(to: Routes.index_path(conn, :index))
+        end
+
+      nil ->
+        conn
+        |> put_flash(:error, "Resource don't exists")
+        |> redirect(to: Routes.index_path(conn, :index))
+    end
   end
 
   def list(conn, %{"year" => year, "month" => month}) do
@@ -153,5 +191,14 @@ defmodule GoodDeedsWeb.GivenPointsController do
             nil
         end
     end
+  end
+
+  defp ungiveaway_points(from_user, to_user, points) do
+    points = String.to_integer(points)
+    %{points: from_points} = Repo.preload(from_user, :points)
+    %{points: to_points} = Repo.preload(to_user, :points)
+
+    Points.update_user_points(from_points, %{pool: from_points.pool + points})
+    Points.update_user_points(to_points, %{points: to_points.points - points})
   end
 end

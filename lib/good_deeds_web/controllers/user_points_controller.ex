@@ -3,11 +3,10 @@ defmodule GoodDeedsWeb.UserPointsController do
   alias GoodDeeds.Repo
   alias GoodDeeds.Points
 
-
   def show(%{assigns: %{current_user: user}} = conn, _params) do
     %{points: points} = user |> Repo.preload(points: [given_points: [:user]])
 
-    render(conn, "show.html", points: points)
+    render(conn, "show.html", points: points, today: Date.utc_today())
   end
 
   def trigger_pool_reset(conn, _params) do

@@ -19,7 +19,17 @@
   <h4>History of given points</h4>
   <ul>
     <%= for given <- assigns.points.given_points do %>
-      <li><%= given.given %> points to <%= given.user.email %></li>
+      <li>
+        <%= given.given %> points to <%= given.user.email %>
+        <%= cond do %>
+          <% given.canceled -> %>
+            - Cancelled
+          <% given.inserted_at.month == assigns.today.month && given.inserted_at.year == assigns.today.year -> %>
+            -
+            <%= link("Cancel", to: Routes.given_points_path(@conn, :cancel, given.id), method: :delete) %>
+          <% true -> %>
+        <% end %>
+      </li>
     <% end %>
   </ul>
 </div>

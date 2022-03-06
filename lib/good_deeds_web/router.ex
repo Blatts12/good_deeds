@@ -31,6 +31,12 @@ defmodule GoodDeedsWeb.Router do
     post "/giveaway", GiveawayController, :create
   end
 
+  scope "/given_points", GoodDeedsWeb do
+    pipe_through [:browser, :require_authenticated_user]
+
+    delete "/:id/cancel", GivenPointsController, :cancel
+  end
+
   scope "/admin", GoodDeedsWeb do
     pipe_through [:browser, :require_authenticated_user, :require_admin_user]
 
