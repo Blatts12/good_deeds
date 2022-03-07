@@ -3,7 +3,7 @@ defmodule GoodDeeds.Accounts.UserNotifier do
 
   alias GoodDeeds.Mailer
 
-  @from_address "noreply@example.com"
+  @from_address "noreply@safe-anchorage-36092.herokuapp.com"
 
   # Delivers the email using the application mailer.
   defp deliver(to, subject, text_body, html_body) do
