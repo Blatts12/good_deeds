@@ -10,14 +10,16 @@ import Config
 # which you should run after static files are built and
 # before starting your production server.
 config :good_deeds, GoodDeedsWeb.Endpoint,
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  cache_static_manifest: "priv/static/cache_manifest.json",
+  url: [scheme: "https", host: "safe-anchorage-36092.herokuapp.com", port: 443],
+  force_ssl: [rewrite_on: [:x_forwarded_proto]]
 
 # Bamboo configuration
 config :good_deeds, GoodDeeds.Mailer, adapter: Bamboo.SMTPAdapter
   server: "smtp-relay.sendinblue.com",
   port: 587,
-  username: {:system, "SMTP_USERNAME"},
-  password: {:system, "SMTP_PASSWORD"}
+  username: System.get_env("SMTP_USERNAME"),
+  password: System.get_env("SMTP_PASSWORD")
 
 # Do not print debug messages in production
 config :logger, level: :info
