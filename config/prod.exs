@@ -15,7 +15,8 @@ config :good_deeds, GoodDeedsWeb.Endpoint,
   force_ssl: [rewrite_on: [:x_forwarded_proto]]
 
 # Bamboo configuration
-config :good_deeds, GoodDeeds.Mailer, adapter: Bamboo.SMTPAdapter
+config :good_deeds, GoodDeeds.Mailer,
+  adapter: Bamboo.SMTPAdapter,
   server: "smtp-relay.sendinblue.com",
   port: 587,
   username: System.get_env("SMTP_USERNAME"),
