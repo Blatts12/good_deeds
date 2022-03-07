@@ -213,8 +213,6 @@ defmodule GoodDeedsWeb.GivenPointsController do
     %{points: from_points} = Repo.preload(from_user, :points)
     %{points: to_points} = Repo.preload(to_user, :points)
 
-    IO.inspect(from_points)
-
     Points.update_user_points(from_points, %{pool: from_points.pool + points})
     Points.update_user_points(to_points, %{points: to_points.points - points})
   end
