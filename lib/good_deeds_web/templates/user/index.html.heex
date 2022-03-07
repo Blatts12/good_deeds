@@ -8,7 +8,6 @@
     <th>Confirmed?</th>
     <th>Reg Date</th>
     <th>Points</th>
-    <th>Given</th>
   </tr>
   <%= for user <- assigns.users do %>
     <tr>
@@ -27,8 +26,9 @@
       <td>
         <%= user.inserted_at %>
       </td>
-      <td><i>WIP</i></td>
-      <td><i>WIP</i></td>
+      <td>
+        <%= link("Edit", to: Routes.user_points_path(@conn, :edit, user.points)) %>
+      </td>
     </tr>
   <% end %>
 </table>

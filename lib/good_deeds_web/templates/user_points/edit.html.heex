@@ -1,0 +1,20 @@
+<.form let={f} for={@changeset} action={Routes.user_points_path(@conn, :update, @user_points)}>
+  <h1 class="header text-center margin-auto">Update points</h1>
+  <p class="text-center margin-auto">Owner: <%= assigns.user.email %></p>
+
+  <%= label f, :pool %>
+  <%= number_input f, :pool, required: true, min: 0  %>
+  <%= error_tag f, :pool %>
+
+  <%= label f, :points %>
+  <%= number_input f, :points, required: true, min: 0 %>
+  <%= error_tag f, :points %>
+
+  <%= if @changeset.action do %>
+  <div class="error-block">
+      <p class="text-center margin-auto">Oops, something went wrong! Please check the errors above.</p>
+  </div>
+  <% end %>
+
+  <%= submit "Update" , class: "btn btn__submit" %>
+</.form>

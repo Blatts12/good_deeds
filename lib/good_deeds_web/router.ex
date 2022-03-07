@@ -42,6 +42,8 @@ defmodule GoodDeedsWeb.Router do
 
     get "/", IndexController, :admin
     get "/users", UserController, :index
+    get "/user_points/:id", UserPointsController, :edit
+    put "/user_points/:id", UserPointsController, :update
     get "/given_points", GivenPointsController, :index
     get "/given_points/list/:year/:month", GivenPointsController, :list
     get "/given_points/summary/:year/:month", GivenPointsController, :summary
