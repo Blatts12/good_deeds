@@ -39,12 +39,6 @@ defmodule GoodDeeds.PointsTest do
              } = errors_on(changeset)
     end
 
-    test "create_user_points/1 with invalid data, pool over limit, returns error changeset" do
-      {:error, changeset} = Points.create_user_points(@invalid_attrs_over_limit)
-
-      assert %{pool: ["must be less than or equal to 50"]} = errors_on(changeset)
-    end
-
     test "update_user_points/2 with valid data updates the user_points" do
       user_points = user_points_fixture()
       update_attrs = %{points: 43, pool: 43}

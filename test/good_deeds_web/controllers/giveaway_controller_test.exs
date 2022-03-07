@@ -42,7 +42,9 @@ defmodule GoodDeedsWeb.GiveawayControllerTest do
       conn = get(conn, Routes.user_points_path(conn, :show))
       response = html_response(conn, 200)
       assert response =~ "<h4>Your Pool</h4>"
-      assert response =~ "<li>25 points to test_case@example.com</li>"
+
+      assert response =~
+               "<li>\n25 points to test_case@example.com\n\n            -\n<a data-csrf"
     end
 
     test "renders errors for invalid data, non existent email and points over limit", %{
