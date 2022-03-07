@@ -8,6 +8,10 @@
       <%= given.given %>
       points from
       <%= given.user_points.user.email %>
+      <%= if assigns.cancellable do %>
+        -
+        <%= link("Cancel", to: Routes.given_points_path(@conn, :cancel, given.id), method: :delete) %>
+      <% end %>
     </li>
   <% end %>
 </ul>

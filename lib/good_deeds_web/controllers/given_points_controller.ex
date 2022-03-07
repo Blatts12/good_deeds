@@ -2,6 +2,7 @@ defmodule GoodDeedsWeb.GivenPointsController do
   use GoodDeedsWeb, :controller
   alias GoodDeeds.Points.GivenPoints
   alias GoodDeeds.Points
+  alias GoodDeeds.Accounts
   alias GoodDeeds.Repo
   import Ecto.Query
 
@@ -30,15 +31,27 @@ defmodule GoodDeedsWeb.GivenPointsController do
             today = Date.utc_today()
 
             cond do
-              today.month == given_points.inserted_at.month &&
-                  today.year == given_points.inserted_at.year ->
-                conn
-                |> put_flash(:info, "Reward has been cancelled")
-                |> redirect(to: Routes.index_path(conn, :index))
+              !given_points.canceled ->
+                cond do
+                  today.month == given_points.inserted_at.month &&
+                      today.year == given_points.inserted_at.year ->
+                    to_user = Accounts.get_user!(given_points.user_id)
+                    ungiveaway_points(user, to_user, given_points.given)
+                    Points.update_given_points(given_points, %{canceled: true})
+
+                    conn
+                    |> put_flash(:info, "Reward has been cancelled")
+                    |> redirect(to: Routes.index_path(conn, :index))
+
+                  true ->
+                    conn
+                    |> put_flash(:error, "Reward is too old to be cancelled")
+                    |> redirect(to: Routes.index_path(conn, :index))
+                end
 
               true ->
                 conn
-                |> put_flash(:error, "Reward is too old to be cancelled")
+                |> put_flash(:error, "Reward already cancelled")
                 |> redirect(to: Routes.index_path(conn, :index))
             end
 
@@ -83,8 +96,11 @@ defmodule GoodDeedsWeb.GivenPointsController do
             |> redirect(to: Routes.given_points_path(conn, :index))
 
           [%GivenPoints{} | _] ->
+            today = Date.utc_today()
+            cancellable = today.year == start_date.year && today.month == start_date.month
+
             conn
-            |> render("list.html", given_points: given_points)
+            |> render("list.html", given_points: given_points, cancellable: cancellable)
         end
     end
   end
@@ -194,9 +210,10 @@ defmodule GoodDeedsWeb.GivenPointsController do
   end
 
   defp ungiveaway_points(from_user, to_user, points) do
-    points = String.to_integer(points)
     %{points: from_points} = Repo.preload(from_user, :points)
     %{points: to_points} = Repo.preload(to_user, :points)
+
+    IO.inspect(from_points)
 
     Points.update_user_points(from_points, %{pool: from_points.pool + points})
     Points.update_user_points(to_points, %{points: to_points.points - points})

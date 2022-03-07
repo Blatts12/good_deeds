@@ -17,6 +17,6 @@ defmodule GoodDeeds.Points.UserPoints do
     |> cast(attrs, [:points, :pool])
     |> validate_required([:points, :pool])
     |> validate_number(:points, greater_than_or_equal_to: 0)
-    |> validate_number(:pool, greater_than_or_equal_to: 0, less_than_or_equal_to: 50)
+    |> validate_number(:pool, greater_than_or_equal_to: 0)
   end
 end
